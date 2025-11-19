@@ -75,6 +75,12 @@ const ProductsListing = (props) => {
     setSearchValue(e.target.value);
   };
 
+  const clearFilters = () => {
+    setSorting("none");
+    setFilter("all");
+    setSearchValue("");
+  };
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -124,7 +130,10 @@ const ProductsListing = (props) => {
             value={searchValue}
             onChange={handleSearch}
           />
-          <button className="rounded-sm p-2 mt-3 sm:mt-0 hover:cursor-pointer hover:bg-sky-500/100 bg-blue-500 text-white font-medium">
+          <button
+            className="rounded-sm p-2 mt-3 sm:mt-0 hover:cursor-pointer hover:bg-sky-500/100 bg-blue-500 text-white font-medium"
+            onClick={clearFilters}
+          >
             Clear Filters
           </button>
         </div>
