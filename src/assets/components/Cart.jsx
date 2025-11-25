@@ -2,12 +2,17 @@ import React from "react";
 import CartItem from "./CartItem";
 
 import { cartData } from "../data/productsData";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
+  const subTotal = cartData.reduce(
+    (sum, { price, quantity }) => sum + price * quantity,
+    0
+  );
   return (
     <>
       <div className="flex h-full flex-col overflow-y-auto bg-white shadow-xl justify-center items-center">
-        <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 w-1/2">
+        <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 w-full md:w-3/4 lg:w-1/2 ">
           <div className="flex items-start justify-between">
             <h2 id="drawer-title" className="text-lg font-medium text-gray-900">
               Shopping cart
@@ -24,10 +29,10 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-200 px-4 py-6 sm:px-6 w-1/2">
+        <div className="border-t border-gray-200 px-4 py-6 sm:px-6 w-full md:w-3/4 lg:w-1/2 ">
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Subtotal</p>
-            <p>$262.00</p>
+            <p>${subTotal.toFixed(2)}</p>
           </div>
           <p className="mt-0.5 text-sm text-gray-500">
             Shipping and taxes calculated at checkout.
@@ -43,15 +48,17 @@ const Cart = () => {
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
               or
-              <button
-                type="button"
-                command="close"
-                commandfor="drawer"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Continue Shopping
-                <span aria-hidden="true"> →</span>
-              </button>
+              <Link to={"/"}>
+                <button
+                  type="button"
+                  command="close"
+                  commandfor="drawer"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Continue Shopping
+                  <span aria-hidden="true"> →</span>
+                </button>
+              </Link>
             </p>
           </div>
         </div>
