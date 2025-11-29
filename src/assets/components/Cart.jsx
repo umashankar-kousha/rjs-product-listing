@@ -11,7 +11,7 @@ const Cart = () => {
   );
   return (
     <>
-      <div className="flex h-full flex-col overflow-y-auto bg-white shadow-xl justify-center items-center">
+      <div className="flex h-full flex-col overflow-y-auto bg-white shadow-xl  items-center">
         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 w-full md:w-3/4 lg:w-1/2 ">
           <div className="flex items-start justify-between">
             <h2 id="drawer-title" className="text-lg font-medium text-gray-900">
