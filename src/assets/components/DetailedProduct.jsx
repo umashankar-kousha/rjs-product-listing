@@ -68,11 +68,15 @@ const DetailedProduct = (props) => {
   return (
     <CartContext.Consumer>
       {(value) => {
-        const { addCartItems } = value;
+        const { cartData, addCartItems } = value;
+        const isItemPresentInCart = cartData.find(
+          (item) => item.id === product.id
+        )
+          ? true
+          : false;
 
         const onAddToCart = () => {
           addCartItems({ ...product, quantity: 1 });
-          alert("Items Added to cart");
         };
         return (
           <div className="bg-white w-screen min-h-screen flex flex-col items-center  p-5 mt-5">
@@ -128,12 +132,21 @@ const DetailedProduct = (props) => {
                       </button>
                     </div>
                   </div> */}
-                  <button
-                    className=" p-3 rounded-lg  font-bold bg-cyan-500 hover:bg-cyan-500/90 hover:cursor-pointer text-white w-3/4"
-                    onClick={onAddToCart}
-                  >
-                    Add to cart
-                  </button>
+                  {!isItemPresentInCart && (
+                    <button
+                      className=" p-3 rounded-lg  font-bold bg-cyan-500 hover:bg-cyan-500/90 hover:cursor-pointer text-white w-3/4"
+                      onClick={onAddToCart}
+                    >
+                      Add to cart
+                    </button>
+                  )}
+                  {isItemPresentInCart && (
+                    <Link to={"/cart"} className=" w-3/4">
+                      <button className=" p-3 rounded-lg  font-bold bg-cyan-500 hover:bg-cyan-500/90 hover:cursor-pointer text-white w-full">
+                        Go to cart
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
