@@ -27,6 +27,19 @@ const App = () => {
     });
   };
 
+  const updateQuantity = (id, quantity) => {
+    updateCartData((prev) => {
+      const updatedCart = prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: quantity };
+        } else {
+          return { ...item };
+        }
+      });
+      return updatedCart;
+    });
+  };
+
   return (
     <Router>
       <CartContext.Provider
@@ -34,6 +47,7 @@ const App = () => {
           cartData: cartData,
           addCartItems: addCartItems,
           removeCartItems: removeCartItems,
+          updateQuantity: updateQuantity,
         }}
       >
         <Navbar />

@@ -4,29 +4,25 @@ import CartContext from "../context/CartContext";
 
 const CartItem = (props) => {
   const { title, price, quantity, image, id } = props;
-  const [productuantity, setQuantity] = useState(quantity);
-
-  const onAddQuantity = () => {
-    setQuantity((prev) => ++prev);
-  };
-
-  const onRemoveQuantity = () => {
-    setQuantity((prev) => {
-      if (prev !== 1) {
-        return --prev;
-      } else {
-        setQuantity(1);
-      }
-    });
-  };
 
   return (
     <CartContext.Consumer>
       {(value) => {
-        const { removeCartItems } = value;
+        const { removeCartItems, updateQuantity } = value;
         const onClickOnRemove = () => {
           removeCartItems(id);
         };
+
+        const onAddQuantity = () => {
+          const updatedQuantity = quantity + 1;
+          updateQuantity(id, updatedQuantity);
+        };
+
+        const onRemoveQuantity = () => {
+          const updatedQuantity = quantity !== 1 ? quantity - 1 : 1;
+          updateQuantity(id, updatedQuantity);
+        };
+
         return (
           <>
             <li className="flex py-6 shadow-xl">
@@ -45,7 +41,7 @@ const CartItem = (props) => {
                         {title}
                       </h3>
                     </Link>
-                    <p className="ml-4">${price * quantity}</p>
+                    <p className="ml-4">${(price * quantity).toFixed(2)}</p>
                   </div>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
@@ -56,7 +52,7 @@ const CartItem = (props) => {
                     >
                       +
                     </button>
-                    <span>{productuantity}</span>
+                    <span>{quantity}</span>
                     <button
                       className=" ml-2 bg-gray-200 text-black w-9 rounded-full font-bold hover:cursor-pointer"
                       onClick={onRemoveQuantity}
