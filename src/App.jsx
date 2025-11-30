@@ -20,12 +20,20 @@ const App = () => {
     updateCartData((prev) => [...prev, data]);
   };
 
+  const removeCartItems = (id) => {
+    updateCartData((prev) => {
+      const updatedCart = prev.filter((item) => item.id != id);
+      return updatedCart;
+    });
+  };
+
   return (
     <Router>
       <CartContext.Provider
         value={{
           cartData: cartData,
           addCartItems: addCartItems,
+          removeCartItems: removeCartItems,
         }}
       >
         <Navbar />
